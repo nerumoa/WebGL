@@ -1,0 +1,159 @@
+<html>
+    <head>
+        <title>Clock</title>
+        <meta charset="UTF-8">
+        <script src="https://unpkg.com/three@0.137.4/build/three.min.js"></script>
+        <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
+    </head>
+<body>
+    <script>
+        // ページの読み込みを待つ
+        window.addEventListener('DOMContentLoaded', init);
+
+        function init() {
+            // サイズ指定
+            var width = 800,
+                height = 600;
+
+            // レンダラーを作成 
+            var renderer = new THREE.WebGLRenderer();
+            document.body.appendChild(renderer.domElement);
+            renderer.setSize(width, height);
+            renderer.shadowMap.enabled = true;      // 影を有効にする
+
+            // シーンを作成
+            var scene = new THREE.Scene();
+
+            // カメラを作成
+            var camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
+            camera.position.set(1, 1, 8);  //位置を指定
+
+            // カメラコントローラーを作成
+            const controls = new THREE.OrbitControls(camera, document.body);
+
+            // 平行光源
+            var dirLight = new THREE.DirectionalLight(0xffffff);
+            dirLight.position.set(16, 4, 16);     //位置を指定
+            dirLight.castShadow = true;         // 平行光源の影を有効にする
+            scene.add(dirLight);     // シーンに追加
+
+            // 点光源
+            const spotLight = new THREE.SpotLight(0x666666, 1, 45, Math.PI / 4, 10, 0.5);
+            spotLight.position.set(5, 10, -15);
+            spotLight.castShadow = true;    // 点光源の影を有効にする
+            scene.add(spotLight);     // シーンに追加
+
+            // 座標表示
+            //const gridHelper = new THREE.GridHelper(2, 10); // size, step
+            //scene.add(gridHelper);
+            //const axisHelper = new THREE.AxisHelper(2); //軸の長さ　X：赤、Y：緑、z：青
+            //scene.add(axisHelper);
+
+            // 平面を作成
+            var planeGeo = new THREE.PlaneGeometry(10, 10);
+            var planeMaterial = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
+            var plane = new THREE.Mesh(planeGeo, planeMaterial);
+            plane.receiveShadow = true;     // 影をつける
+            plane.rotation.set(-Math.PI / 2, 0, 0);
+            plane.position.set(0, -2, -2);
+            scene.add(plane);
+
+            // 箱を作成
+            var redMaterial = new THREE.MeshPhongMaterial({ color: 0xff0000 });
+            var greenMaterial = new THREE.MeshPhongMaterial({ color: 0x69821b });
+            var yellowMaterial = new THREE.MeshPhongMaterial({ color: 0xffff00 });
+            var goldMaterial = new THREE.MeshPhongMaterial({ color: 0xe6b422 });
+            var whiteMaterial = new THREE.MeshPhongMaterial({ color: 0xeeeeee });
+            var glossMaterial = new THREE.MeshStandardMaterial({ color: 0x0000ff, roughness: 0.3 });
+
+            var torusGeo = new THREE.TorusGeometry(1.5, 0.2, 12, 30)
+            var torus = new THREE.Mesh(torusGeo, glossMaterial);
+            torus.castShadow = true;    // 影を落とす
+            torus.position.set(0, 0, 0);
+            scene.add(torus);
+
+            var sphereGeo = new THREE.SphereGeometry(0.1, 32, 32);
+            var sphere = new THREE.Mesh(sphereGeo, goldMaterial);
+            sphere.castShadow = true;
+            sphere.position.set(0, 0, 0);
+            scene.add(sphere)
+
+            var boxGeo = new THREE.BoxGeometry(0.1, 0.7, 0.1);
+            var box = new THREE.Mesh(boxGeo, greenMaterial);
+            box.castShadow = true;
+            box.position.set(0, 0.35, 0);
+
+            var coneGeo = new THREE.ConeGeometry(0.12, 0.5, 4);
+            var cone = new THREE.Mesh(coneGeo, greenMaterial);
+            cone.castShadow = true;
+            cone.rotation.set(0, Math.PI * 0.25, 0);
+            cone.position.set(0, 0.95, 0);
+            scene.add(cone);
+
+            var boxGeo2 = new THREE.BoxGeometry(0.1, 0.35, 0.1);
+            var box2 = new THREE.Mesh(boxGeo2, redMaterial);
+            box2.castShadow = true;
+            box2.position.set(0, 0.175, 0);
+            scene.add(box2);
+
+            var coneGeo2 = new THREE.ConeGeometry(0.12, 0.3, 4);
+            var cone2 = new THREE.Mesh(coneGeo2, redMaterial);
+            cone2.castShadow = true;
+            cone2.rotation.set(0, Math.PI * 0.25, 0);
+            cone2.position.set(0, 0.5, 0);
+            scene.add(cone2);
+
+            var starGeo = new THREE.TorusKnotGeometry(2, 0.3, 20, 6, 8, 5);
+            var star = new THREE.Mesh(starGeo, yellowMaterial);
+            star.position.set(5, 15, -30);
+            scene.add(star);
+
+            // グループ化
+            const min = new THREE.Group();
+            min.add(box);
+            min.add(cone);
+            min.position.set(0, 0, 0);
+            scene.add(min);
+
+            const hour = new THREE.Group();
+            hour.add(box2);
+            hour.add(cone2);
+            hour.position.set(0, 0, 0);
+            hour.castShadow = true;
+            scene.add(hour);
+
+            const hourDozen = new THREE.Group();
+            for (let i = 0; i < 12; i++) {
+                var dozenGeo = new THREE.BoxGeometry(0.05, 0.2, 0.01);
+                var dozen = new THREE.Mesh(dozenGeo, whiteMaterial);
+
+                var radian = i / 12 * Math.PI * 2;
+                dozen.position.set(
+                    1 * Math.cos(radian), // X座標
+                    1 * Math.sin(radian), // Y座標
+                    0 // Z座標
+                );
+                dozen.rotation.z = radian + Math.PI * (1 / 2);
+                hourDozen.add(dozen);
+            }
+            scene.add(hourDozen);
+
+            update();
+
+            // ループイベント
+            function update() {
+                // レンダリング
+                renderer.render(scene, camera);
+                requestAnimationFrame(update);
+
+                // 物体を回転させる
+                min.rotation.z -= Math.PI * 1 / 270;
+                hour.rotation.z -= Math.PI * 1 / (270*12);
+
+                star.rotation.x += 0.01;
+                star.rotation.y += 0.01;
+            }
+        }
+    </script>
+</body>
+</html>
