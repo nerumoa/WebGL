@@ -7,58 +7,58 @@
     </head>
 <body>
     <script>
-        // ƒy[ƒW‚Ì“Ç‚İ‚İ‚ğ‘Ò‚Â
+        // ï¿½yï¿½[ï¿½Wï¿½Ì“Ç‚İï¿½ï¿½İ‚ï¿½Ò‚ï¿½
         window.addEventListener('DOMContentLoaded', init);
 
         function init() {
-            // ƒTƒCƒYw’è
+            // ï¿½Tï¿½Cï¿½Yï¿½wï¿½ï¿½
             var width = 800,
                 height = 600;
 
-            // ƒŒƒ“ƒ_ƒ‰[‚ğì¬ 
+            // ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ì¬ 
             var renderer = new THREE.WebGLRenderer();
             document.body.appendChild(renderer.domElement);
             renderer.setSize(width, height);
-            renderer.shadowMap.enabled = true;      // ‰e‚ğ—LŒø‚É‚·‚é
+            renderer.shadowMap.enabled = true;      // ï¿½eï¿½ï¿½Lï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½
 
-            // ƒV[ƒ“‚ğì¬
+            // ï¿½Vï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ì¬
             var scene = new THREE.Scene();
 
-            // ƒJƒƒ‰‚ğì¬
+            // ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì¬
             var camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
-            camera.position.set(1, 1, 8);  //ˆÊ’u‚ğw’è
+            camera.position.set(1, 1, 8);  //ï¿½Ê’uï¿½ï¿½ï¿½wï¿½ï¿½
 
-            // ƒJƒƒ‰ƒRƒ“ƒgƒ[ƒ‰[‚ğì¬
+            // ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½ï¿½ï¿½gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ì¬
             const controls = new THREE.OrbitControls(camera, document.body);
 
-            // •½sŒõŒ¹
+            // ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½
             var dirLight = new THREE.DirectionalLight(0xffffff);
-            dirLight.position.set(16, 4, 16);     //ˆÊ’u‚ğw’è
-            dirLight.castShadow = true;         // •½sŒõŒ¹‚Ì‰e‚ğ—LŒø‚É‚·‚é
-            scene.add(dirLight);     // ƒV[ƒ“‚É’Ç‰Á
+            dirLight.position.set(16, 4, 16);     //ï¿½Ê’uï¿½ï¿½ï¿½wï¿½ï¿½
+            dirLight.castShadow = true;         // ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½Ì‰eï¿½ï¿½Lï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½
+            scene.add(dirLight);     // ï¿½Vï¿½[ï¿½ï¿½ï¿½É’Ç‰ï¿½
 
-            // “_ŒõŒ¹
+            // ï¿½_ï¿½ï¿½ï¿½ï¿½
             const spotLight = new THREE.SpotLight(0x666666, 1, 45, Math.PI / 4, 10, 0.5);
             spotLight.position.set(5, 10, -15);
-            spotLight.castShadow = true;    // “_ŒõŒ¹‚Ì‰e‚ğ—LŒø‚É‚·‚é
-            scene.add(spotLight);     // ƒV[ƒ“‚É’Ç‰Á
+            spotLight.castShadow = true;    // ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½Ì‰eï¿½ï¿½Lï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½
+            scene.add(spotLight);     // ï¿½Vï¿½[ï¿½ï¿½ï¿½É’Ç‰ï¿½
 
-            // À•W•\¦
+            // ï¿½ï¿½ï¿½Wï¿½\ï¿½ï¿½
             //const gridHelper = new THREE.GridHelper(2, 10); // size, step
             //scene.add(gridHelper);
-            //const axisHelper = new THREE.AxisHelper(2); //²‚Ì’·‚³@XFÔAYF—ÎAzFÂ
+            //const axisHelper = new THREE.AxisHelper(2); //ï¿½ï¿½ï¿½Ì’ï¿½ï¿½ï¿½ï¿½@Xï¿½Fï¿½ÔAYï¿½Fï¿½ÎAzï¿½Fï¿½ï¿½
             //scene.add(axisHelper);
 
-            // •½–Ê‚ğì¬
+            // ï¿½ï¿½ï¿½Ê‚ï¿½ï¿½ì¬
             var planeGeo = new THREE.PlaneGeometry(10, 10);
             var planeMaterial = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
             var plane = new THREE.Mesh(planeGeo, planeMaterial);
-            plane.receiveShadow = true;     // ‰e‚ğ‚Â‚¯‚é
+            plane.receiveShadow = true;     // ï¿½eï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½
             plane.rotation.set(-Math.PI / 2, 0, 0);
             plane.position.set(0, -2, -2);
             scene.add(plane);
 
-            // ” ‚ğì¬
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ì¬
             var redMaterial = new THREE.MeshPhongMaterial({ color: 0xff0000 });
             var greenMaterial = new THREE.MeshPhongMaterial({ color: 0x69821b });
             var yellowMaterial = new THREE.MeshPhongMaterial({ color: 0xffff00 });
@@ -68,7 +68,7 @@
 
             var torusGeo = new THREE.TorusGeometry(1.5, 0.2, 12, 30)
             var torus = new THREE.Mesh(torusGeo, glossMaterial);
-            torus.castShadow = true;    // ‰e‚ğ—‚Æ‚·
+            torus.castShadow = true;    // ï¿½eï¿½ğ—‚Æ‚ï¿½
             torus.position.set(0, 0, 0);
             scene.add(torus);
 
@@ -106,9 +106,10 @@
             var starGeo = new THREE.TorusKnotGeometry(2, 0.3, 20, 6, 8, 5);
             var star = new THREE.Mesh(starGeo, yellowMaterial);
             star.position.set(5, 15, -30);
+            star.castShadow = true;
             scene.add(star);
 
-            // ƒOƒ‹[ƒv‰»
+            // ï¿½Oï¿½ï¿½ï¿½[ï¿½vï¿½ï¿½
             const min = new THREE.Group();
             min.add(box);
             min.add(cone);
@@ -119,7 +120,6 @@
             hour.add(box2);
             hour.add(cone2);
             hour.position.set(0, 0, 0);
-            hour.castShadow = true;
             scene.add(hour);
 
             const hourDozen = new THREE.Group();
@@ -129,24 +129,25 @@
 
                 var radian = i / 12 * Math.PI * 2;
                 dozen.position.set(
-                    1 * Math.cos(radian), // XÀ•W
-                    1 * Math.sin(radian), // YÀ•W
-                    0 // ZÀ•W
+                    1 * Math.cos(radian), // Xï¿½ï¿½ï¿½W
+                    1 * Math.sin(radian), // Yï¿½ï¿½ï¿½W
+                    0 // Zï¿½ï¿½ï¿½W
                 );
                 dozen.rotation.z = radian + Math.PI * (1 / 2);
+                dozen.castShadow = true;
                 hourDozen.add(dozen);
             }
             scene.add(hourDozen);
 
             update();
 
-            // ƒ‹[ƒvƒCƒxƒ“ƒg
+            // ï¿½ï¿½ï¿½[ï¿½vï¿½Cï¿½xï¿½ï¿½ï¿½g
             function update() {
-                // ƒŒƒ“ƒ_ƒŠƒ“ƒO
+                // ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½O
                 renderer.render(scene, camera);
                 requestAnimationFrame(update);
 
-                // •¨‘Ì‚ğ‰ñ“]‚³‚¹‚é
+                // ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ï¿½]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 min.rotation.z -= Math.PI * 1 / 270;
                 hour.rotation.z -= Math.PI * 1 / (270*12);
 
