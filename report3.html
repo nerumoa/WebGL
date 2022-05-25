@@ -7,58 +7,58 @@
     </head>
 <body>
     <script>
-        // �y�[�W�̓ǂݍ��݂�҂�
+        // ページの読み込みを待つ
         window.addEventListener('DOMContentLoaded', init);
 
         function init() {
-            // �T�C�Y�w��
+            // サイズを指定
             var width = 800,
                 height = 600;
 
-            // �����_���[���쐬 
+            // レンダラーを作成
             var renderer = new THREE.WebGLRenderer();
             document.body.appendChild(renderer.domElement);
             renderer.setSize(width, height);
-            renderer.shadowMap.enabled = true;      // �e��L���ɂ���
+            renderer.shadowMap.enabled = true;      // 影を有効にする
 
-            // �V�[�����쐬
+            // シーンを作成
             var scene = new THREE.Scene();
 
-            // �J�������쐬
+            // カメラを作成
             var camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
-            camera.position.set(1, 1, 8);  //�ʒu���w��
+            camera.position.set(1, 1, 8);
 
-            // �J�����R���g���[���[���쐬
+            // カメラコントローラーを作成
             const controls = new THREE.OrbitControls(camera, document.body);
 
-            // ���s����
+            // 平行光源
             var dirLight = new THREE.DirectionalLight(0xffffff);
-            dirLight.position.set(16, 4, 16);     //�ʒu���w��
-            dirLight.castShadow = true;         // ���s�����̉e��L���ɂ���
-            scene.add(dirLight);     // �V�[���ɒǉ�
+            dirLight.position.set(16, 4, 16);
+            dirLight.castShadow = true;         // 影を落とす
+            scene.add(dirLight);
 
-            // �_����
+            // 点光源
             const spotLight = new THREE.SpotLight(0x666666, 1, 45, Math.PI / 4, 10, 0.5);
             spotLight.position.set(5, 10, -15);
-            spotLight.castShadow = true;    // �_�����̉e��L���ɂ���
-            scene.add(spotLight);     // �V�[���ɒǉ�
+            spotLight.castShadow = true;    // 影を落とす
+            scene.add(spotLight);
 
-            // ���W�\��
+            // 座標表示
             //const gridHelper = new THREE.GridHelper(2, 10); // size, step
             //scene.add(gridHelper);
-            //const axisHelper = new THREE.AxisHelper(2); //���̒����@X�F�ԁAY�F�΁Az�F��
+            //const axisHelper = new THREE.AxisHelper(2); //軸の長さ　X：赤、Y：緑、z：青
             //scene.add(axisHelper);
 
-            // ���ʂ��쐬
+            // 平面を作成
             var planeGeo = new THREE.PlaneGeometry(10, 10);
             var planeMaterial = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
             var plane = new THREE.Mesh(planeGeo, planeMaterial);
-            plane.receiveShadow = true;     // �e������
+            plane.receiveShadow = true;     // 影をつける
             plane.rotation.set(-Math.PI / 2, 0, 0);
             plane.position.set(0, -2, -2);
             scene.add(plane);
 
-            // �����쐬
+            // 箱を作成
             var redMaterial = new THREE.MeshPhongMaterial({ color: 0xff0000 });
             var greenMaterial = new THREE.MeshPhongMaterial({ color: 0x69821b });
             var yellowMaterial = new THREE.MeshPhongMaterial({ color: 0xffff00 });
@@ -68,7 +68,7 @@
 
             var torusGeo = new THREE.TorusGeometry(1.5, 0.2, 12, 30)
             var torus = new THREE.Mesh(torusGeo, glossMaterial);
-            torus.castShadow = true;    // �e�𗎂Ƃ�
+            torus.castShadow = true;    // 影を落とす
             torus.position.set(0, 0, 0);
             scene.add(torus);
 
@@ -109,7 +109,7 @@
             star.castShadow = true;
             scene.add(star);
 
-            // �O���[�v��
+            // グループ作成
             const min = new THREE.Group();
             min.add(box);
             min.add(cone);
@@ -129,9 +129,9 @@
 
                 var radian = i / 12 * Math.PI * 2;
                 dozen.position.set(
-                    1 * Math.cos(radian), // X���W
-                    1 * Math.sin(radian), // Y���W
-                    0 // Z���W
+                    1 * Math.cos(radian), // X軸
+                    1 * Math.sin(radian), // Y軸
+                    0 // Z軸
                 );
                 dozen.rotation.z = radian + Math.PI * (1 / 2);
                 dozen.castShadow = true;
@@ -141,13 +141,13 @@
 
             update();
 
-            // ���[�v�C�x���g
+            // ループイベント
             function update() {
-                // �����_�����O
+                // レンダリング
                 renderer.render(scene, camera);
                 requestAnimationFrame(update);
 
-                // ���̂���]������
+                // 針を回転させる
                 min.rotation.z -= Math.PI * 1 / 270;
                 hour.rotation.z -= Math.PI * 1 / (270*12);
 
