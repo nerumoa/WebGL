@@ -51,7 +51,7 @@
 
             // テクスチャー読み込み
             var texLoader = new THREE.TextureLoader();  
-            var tex = texLoader.load("stone.png");
+            var tex = texLoader.load("stone.jpg");
             var mat = new THREE.MeshPhongMaterial();
             mat.map = tex;
 
@@ -66,7 +66,7 @@
             var plane = new THREE.Mesh(planeGeo, planeMaterial);
             plane.receiveShadow = true;     // 影をつける
             plane.rotation.set(-Math.PI / 2, 0, 0);
-            plane.position.set(0, -1, 0);
+            plane.position.set(0, -2, 0);
             scene.add(plane);
 
             // 箱を作成
