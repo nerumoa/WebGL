@@ -70,7 +70,7 @@
             scene.add(plane);
             
             // ドーナツを作成
-            var torusGeo = new THREE.TorusGeometry(1.5, 0.2, 12, 30)
+            var torusGeo = new THREE.TorusGeometry(1.5, 0.2, 12, 30);
             var torus = new THREE.Mesh(torusGeo, mat);
             torus.castShadow = true;    // 影を落とす
             torus.position.set(0, 0, 0);
@@ -84,7 +84,7 @@
             scene.add(box);
 
             // 球を作成
-            var sphereGeo = new THREE.SphereGeometry(0.6, 32, 32 ); ;
+            var sphereGeo = new THREE.SphereGeometry(0.6, 32, 32);
             var sphere = new THREE.Mesh(sphereGeo, mat);
             sphere.position.set(3,0,0);
             sphere.castShadow = true;
