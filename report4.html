@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <title>Clock</title>
+        <meta charset="UTF-8">
+        <script src="https://unpkg.com/three@0.137.4/build/three.min.js"></script>
+        <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
+    </head>
+<body>
+    <script>
+        // ページの読み込みを待つ
+        window.addEventListener('DOMContentLoaded', init);
+
+        function init() {
+            // サイズを指定
+            const width = 800;
+            const height = 600;
+
+            // レンダラーを作成
+            var renderer = new THREE.WebGLRenderer();
+            document.body.appendChild(renderer.domElement);
+            renderer.setSize(width, height);
+            renderer.shadowMap.enabled = true;      // 影を有効にする
+
+            // シーンを作成
+            const scene = new THREE.Scene();
+
+            // カメラを作成
+            const camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
+            camera.position.set(1, 1, 8);
+
+            // カメラコントローラーを作成
+            const controls = new THREE.OrbitControls(camera, document.body);
+
+            // 平行光源
+            var dirLight = new THREE.DirectionalLight(0xffffff);
+            dirLight.position.set(16, 4, 16);
+            dirLight.castShadow = true;         // 影を落とす
+            scene.add(dirLight);
+
+            // 点光源
+            const spotLight = new THREE.SpotLight(0x666666, 1, 45, Math.PI / 4, 10, 0.5);
+            spotLight.position.set(5, 10, -15);
+            spotLight.castShadow = true;    // 影を落とす
+            scene.add(spotLight);
+
+            // 座標表示
+            //const gridHelper = new THREE.GridHelper(2, 10); // size, step
+            //scene.add(gridHelper);
+            //const axisHelper = new THREE.AxisHelper(2); //軸の長さ　X：赤、Y：緑、z：青
+            //scene.add(axisHelper);
+
+            // テクスチャー読み込み
+            var textureLoader = new THREE.TextureLoader();  
+            var texture = textureLoader.load("cit.png");
+            var mat = new THREE.MeshPhongMaterial();
+            mat.map = texture;
+
+            // 箱を作成
+            var geometry1 = new THREE.BoxGeometry(0.8, 0.8, 0.8);
+            //var material = new THREE.MeshPhongMaterial({ color: 0xffffff });
+            //var box = new THREE.Mesh(geometry, material);
+            var box = new THREE.Mesh(geometry1, mat);
+            box.position.set(-1.5,0,0); //位置を指定
+            scene.add(box);   // シーンに追加
+
+            // 球を作成
+            var geometry2 = new THREE.SphereGeometry(0.5, 32, 32 ); ;
+            var Sphere = new THREE.Mesh(geometry2, mat);
+            Sphere.position.set(0,0,0);
+            scene.add(Sphere);
+
+            // 円柱を作成
+            var geometry3 = new THREE.CylinderGeometry( 0.2, 0.5, 0.5, 20, 4 );
+            var Cylinder = new THREE.Mesh(geometry3, mat);
+            Cylinder.position.set(1.5,0,0);
+            scene.add(Cylinder);
+
+            update();
+
+            // ループイベント
+            function update() {
+                // レンダリング
+                renderer.render(scene, camera);
+                requestAnimationFrame(update);
+
+                // 箱を回転させる
+                box.rotation.x += 0.01;
+                box.rotation.y += 0.01;
+        
+                // 箱を回転させる
+                Sphere.rotation.x += 0.01;
+                Sphere.rotation.y += 0.01;
+        
+                // 円柱を回転させる
+                Cylinder.rotation.x += 0.01;
+                Cylinder.rotation.y += 0.01;
+            }
+        }
+    </script>
+</body>
+</html>
