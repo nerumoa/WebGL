@@ -105,18 +105,18 @@
             scene.add(cone);
 
             // グループ作成
+            const vertical = new THREE.Group();
+            vertical.add(star);
+            vertical.add(cone);
+            vertical.position.set(0, 0, 0);
+            scene.add(vertical);
+
             const horizontal = new THREE.Group();
             horizontal.add(torus);
             horizontal.add(box);
             horizontal.add(sphere);
             horizontal.position.set(0, 0, 0);
             scene.add(horizontal);
-
-            const vertical = new THREE.Group();
-            vertical.add(star);
-            vertical.add(cone);
-            vertical.position.set(0, 0, 0);
-            scene.add(vertical);
 
             update();
 
@@ -127,11 +127,11 @@
                 requestAnimationFrame(update);
 
                 // 物体を回転させる
-                torus.rotation.z += 0.01;
                 vertical.rotation.x += 0.01;
                 vertical.rotation.y += 0.01;
                 horizontal.rotation.y += 0.01;
                 horizontal.rotation.z += 0.01;
+                torus.rotation.x += 0.01;
             }
         }
     </script>
