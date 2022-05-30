@@ -2,7 +2,7 @@
     <head>
         <title>Material</title>
         <meta charset="UTF-8">
-        <script src="https://unpkg.com/three@0.137.4/build/three.min.js"></script>
+        <script src="https://unpkg.com/three@0.137.4/build/three.horizontal.js"></script>
         <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
     </head>
 <body>
@@ -38,7 +38,7 @@
             scene.add(dirLight);
 
             // 点光源
-            var dirLight2 = new THREE.DirectionalLight(0x888888);
+            var dirLight2 = new THREE.DirectionalLight(0x666666);
             dirLight2.position.set(-10, -10, 10);
             dirLight2.castShadow = true;
             scene.add(dirLight2);
@@ -68,27 +68,56 @@
             plane.rotation.set(-Math.PI / 2, 0, 0);
             plane.position.set(0, -2, 0);
             scene.add(plane);
+            
+            // ドーナツを作成
+            var torusGeo = new THREE.TorusGeometry(1.5, 0.2, 12, 30)
+            var torus = new THREE.Mesh(torusGeo, mat);
+            torus.castShadow = true;    // 影を落とす
+            torus.position.set(0, 0, 0);
+            scene.add(torus);
 
             // 箱を作成
-            var geometry1 = new THREE.BoxGeometry(0.8, 0.8, 0.8);
-            var box = new THREE.Mesh(geometry1, mat);
-            box.position.set(-1.5,0,0); //位置を指定
+            var boxGeo = new THREE.BoxGeometry(1, 1, 1);
+            var box = new THREE.Mesh(boxGeo, mat);
+            box.position.set(-3,0,0);
             box.castShadow = true;
-            scene.add(box);   // シーンに追加
+            scene.add(box);
 
             // 球を作成
-            var geometry2 = new THREE.SphereGeometry(0.5, 32, 32 ); ;
-            var Sphere = new THREE.Mesh(geometry2, mat);
-            Sphere.position.set(0,0,0);
-            Sphere.castShadow = true;
-            scene.add(Sphere);
+            var sphereGeo = new THREE.SphereGeometry(0.6, 32, 32 ); ;
+            var sphere = new THREE.Mesh(sphereGeo, mat);
+            sphere.position.set(3,0,0);
+            sphere.castShadow = true;
+            scene.add(sphere);
 
-            // 円柱を作成
-            var geometry3 = new THREE.CylinderGeometry( 0.2, 0.5, 0.5, 20, 4 );
-            var Cylinder = new THREE.Mesh(geometry3, mat);
-            Cylinder.position.set(1.5,0,0);
-            Cylinder.castShadow = true;
-            scene.add(Cylinder);
+            // 星型を作成
+            var starGeo = new THREE.TorusKnotGeometry(2, 0.3, 20, 6, 8, 5);
+            var star = new THREE.Mesh(starGeo, mat);
+            star.position.set(0, 3, 0);
+            star.castShadow = true;
+            scene.add(star);
+
+            // 円錐を作成
+            var coneGeo = new THREE.ConeGeometry(1, 0.5, 30);
+            var cone = new THREE.Mesh(coneGeo, mat);
+            cone.position.set(0, -3, 0);
+            cone.castShadow = true;
+            scene.add(cone);
+
+            // グループ作成
+            const horizontal = new THREE.Group();
+            horizontal.add(torus);
+            horizontal.add(box);
+            horizontal.add(sphere);
+            horizontal.position.set(0, 0, 0);
+            scene.add(horizontal);
+
+            const vertical = new THREE.Group();
+            vertical.add(torus);
+            vertical.add(star);
+            vertical.add(cone);
+            vertical.position.set(0, 0, 0);
+            scene.add(vertical);
 
             update();
 
@@ -99,16 +128,22 @@
                 requestAnimationFrame(update);
 
                 // 箱を回転させる
+                torus.rotation.x += 0.01;
+
                 box.rotation.x += 0.01;
                 box.rotation.y += 0.01;
-        
-                // 箱を回転させる
-                Sphere.rotation.x += 0.01;
-                Sphere.rotation.y += 0.01;
+                sphere.rotation.x += 0.01;
+                sphere.rotation.y += 0.01;
         
                 // 円柱を回転させる
-                Cylinder.rotation.x += 0.01;
-                Cylinder.rotation.y += 0.01;
+                star.rotation.y += 0.01;
+                star.rotation.z += 0.01;
+                cone.rotation.y += 0.01;
+                cone.rotation.z += 0.01;
+                
+
+                vertical.rotation.x += 0.01;
+                horizontal.rotation.z += 0.01;
             }
         }
     </script>
