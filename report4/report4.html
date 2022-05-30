@@ -33,7 +33,7 @@
 
             // 平行光源
             var dirLight = new THREE.DirectionalLight(0xffffff);
-            dirLight.position.set(16, 4, 16);
+            dirLight.position.set(10, 10, 10);
             dirLight.castShadow = true;         // 影を落とす
             scene.add(dirLight);
 
@@ -51,9 +51,14 @@
 
             // テクスチャー読み込み
             var texLoader = new THREE.TextureLoader();  
-            var tex = texLoader.load("cit.png");
+            var tex = texLoader.load("stone.png");
             var mat = new THREE.MeshPhongMaterial();
             mat.map = tex;
+
+            // バンプマップ読み込み
+            var bump = texLoader.load("stone-bump.jpg");
+            mat.bumpMap = bump;
+            mat.bumpscale = 0.2;
 
             // 平面を作成
             var planeGeo = new THREE.PlaneGeometry(10, 10);
@@ -61,13 +66,11 @@
             var plane = new THREE.Mesh(planeGeo, planeMaterial);
             plane.receiveShadow = true;     // 影をつける
             plane.rotation.set(-Math.PI / 2, 0, 0);
-            plane.position.set(0, -2, -2);
+            plane.position.set(5, 0, 5);
             scene.add(plane);
 
             // 箱を作成
             var geometry1 = new THREE.BoxGeometry(0.8, 0.8, 0.8);
-            //var material = new THREE.MeshPhongMaterial({ color: 0xffffff });
-            //var box = new THREE.Mesh(geometry, material);
             var box = new THREE.Mesh(geometry1, mat);
             box.position.set(-1.5,0,0); //位置を指定
             scene.add(box);   // シーンに追加
