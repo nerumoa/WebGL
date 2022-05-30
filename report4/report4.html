@@ -76,13 +76,6 @@
             torus.position.set(0, 0, 0);
             scene.add(torus);
 
-            var torusGeo2 = new THREE.TorusGeometry(1.2, 0.2, 12, 30);
-            var torus2 = new THREE.Mesh(torusGeo2, mat);
-            torus2.castShadow = true;
-            torus2.rotation.set(Math.PI, 0, 0);
-            torus2.position.set(0, 0, 0);
-            scene.add(torus2);
-
             // 箱を作成
             var boxGeo = new THREE.BoxGeometry(1, 1, 1);
             var box = new THREE.Mesh(boxGeo, mat);
@@ -113,14 +106,13 @@
 
             // グループ作成
             const vertical = new THREE.Group();
-            vertical.add(torus);
             vertical.add(star);
             vertical.add(cone);
             vertical.position.set(0, 0, 0);
             scene.add(vertical);
 
             const horizontal = new THREE.Group();
-            horizontal.add(torus2);
+            horizontal.add(torus);
             horizontal.add(box);
             horizontal.add(sphere);
             horizontal.position.set(0, 0, 0);
@@ -139,6 +131,7 @@
                 vertical.rotation.y += 0.01;
                 horizontal.rotation.y += 0.01;
                 horizontal.rotation.z += 0.01;
+                torus.rotation.x += 0.01;
             }
         }
     </script>
