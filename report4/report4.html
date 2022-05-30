@@ -32,13 +32,13 @@
             const controls = new THREE.OrbitControls(camera, document.body);
 
             // 平行光源
-            var dirLight = new THREE.DirectionalLight(0xffffff);
+            var dirLight = new THREE.DirectionalLight(0x888888);
             dirLight.position.set(0, 20, 0);
             dirLight.castShadow = true;
             scene.add(dirLight);
 
             // 平行光源　補助
-            var dirLight2 = new THREE.DirectionalLight(0x666666);
+            var dirLight2 = new THREE.DirectionalLight(0x444444);
             dirLight2.position.set(-10, 0, 10);
             dirLight2.castShadow = true;
             scene.add(dirLight2);
