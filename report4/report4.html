@@ -70,7 +70,7 @@
             scene.add(plane);
             
             // ドーナツを作成
-            var torusGeo = new THREE.TorusGeometry(1.5, 0.2, 12, 30);
+            var torusGeo = new THREE.TorusGeometry(1.2, 0.2, 12, 30);
             var torus = new THREE.Mesh(torusGeo, mat);
             torus.castShadow = true;
             torus.position.set(0, 0, 0);
@@ -91,14 +91,14 @@
             scene.add(sphere);
 
             // 星型を作成
-            var starGeo = new THREE.TorusKnotGeometry(2, 0.3, 20, 6, 8, 5);
+            var starGeo = new THREE.TorusKnotGeometry(0.8, 0.3, 20, 6, 8, 5);
             var star = new THREE.Mesh(starGeo, mat);
             star.position.set(0, 3, 0);
             star.castShadow = true;
             scene.add(star);
 
             // 円錐を作成
-            var coneGeo = new THREE.ConeGeometry(1, 0.5, 30);
+            var coneGeo = new THREE.ConeGeometry(0.8, 0.8, 30);
             var cone = new THREE.Mesh(coneGeo, mat);
             cone.position.set(0, -3, 0);
             cone.castShadow = true;
@@ -128,20 +128,10 @@
                 requestAnimationFrame(update);
 
                 // 物体を回転させる
-                torus.rotation.x += 0.01;
-
-                box.rotation.x += 0.01;
-                box.rotation.y += 0.01;
-                sphere.rotation.x += 0.01;
-                sphere.rotation.y += 0.01;
-        
-                star.rotation.y += 0.01;
-                star.rotation.z += 0.01;
-                cone.rotation.y += 0.01;
-                cone.rotation.z += 0.01;
-
                 vertical.rotation.x += 0.01;
-                horizontal.rotation.z += 0.01;
+                vertical.rotation.y += 0.01;
+                //horizontal.rotation.y += 0.01;
+                //horizontal.rotation.z += 0.01;
             }
         }
     </script>
