@@ -66,25 +66,28 @@
             var plane = new THREE.Mesh(planeGeo, planeMaterial);
             plane.receiveShadow = true;     // 影をつける
             plane.rotation.set(-Math.PI / 2, 0, 0);
-            plane.position.set(5, 0, 5);
+            plane.position.set(0, -1, 0);
             scene.add(plane);
 
             // 箱を作成
             var geometry1 = new THREE.BoxGeometry(0.8, 0.8, 0.8);
             var box = new THREE.Mesh(geometry1, mat);
             box.position.set(-1.5,0,0); //位置を指定
+            box.castShadow = true;
             scene.add(box);   // シーンに追加
 
             // 球を作成
             var geometry2 = new THREE.SphereGeometry(0.5, 32, 32 ); ;
             var Sphere = new THREE.Mesh(geometry2, mat);
             Sphere.position.set(0,0,0);
+            Sphere.castShadow = true;
             scene.add(Sphere);
 
             // 円柱を作成
             var geometry3 = new THREE.CylinderGeometry( 0.2, 0.5, 0.5, 20, 4 );
             var Cylinder = new THREE.Mesh(geometry3, mat);
             Cylinder.position.set(1.5,0,0);
+            Cylinder.castShadow = true;
             scene.add(Cylinder);
 
             update();
