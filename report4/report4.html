@@ -105,6 +105,7 @@
             scene.add(cone);
 
             // グループ作成
+            /*
             const horizontal = new THREE.Group();
             horizontal.add(torus);
             horizontal.add(box);
@@ -118,6 +119,7 @@
             vertical.add(cone);
             vertical.position.set(0, 0, 0);
             scene.add(vertical);
+            */
 
             update();
 
@@ -140,10 +142,11 @@
                 star.rotation.z += 0.01;
                 cone.rotation.y += 0.01;
                 cone.rotation.z += 0.01;
-                
 
+                /*
                 vertical.rotation.x += 0.01;
                 horizontal.rotation.z += 0.01;
+                */
             }
         }
     </script>
