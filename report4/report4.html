@@ -2,7 +2,7 @@
     <head>
         <title>Material</title>
         <meta charset="UTF-8">
-        <script src="https://unpkg.com/three@0.137.4/build/three.horizontal.js"></script>
+        <script src="https://unpkg.com/three@0.137.4/build/three.min.js"></script>
         <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
     </head>
 <body>
@@ -70,13 +70,11 @@
             scene.add(plane);
             
             // ドーナツを作成
-            /*
             var torusGeo = new THREE.TorusGeometry(1.5, 0.2, 12, 30);
             var torus = new THREE.Mesh(torusGeo, mat);
             torus.castShadow = true;
             torus.position.set(0, 0, 0);
             scene.add(torus);
-            */
 
             // 箱を作成
             var boxGeo = new THREE.BoxGeometry(1, 1, 1);
@@ -93,7 +91,6 @@
             scene.add(sphere);
 
             // 星型を作成
-            /*
             var starGeo = new THREE.TorusKnotGeometry(2, 0.3, 20, 6, 8, 5);
             var star = new THREE.Mesh(starGeo, mat);
             star.position.set(0, 3, 0);
@@ -106,10 +103,8 @@
             cone.position.set(0, -3, 0);
             cone.castShadow = true;
             scene.add(cone);
-            */
 
             // グループ作成
-            /*
             const horizontal = new THREE.Group();
             horizontal.add(torus);
             horizontal.add(box);
@@ -123,7 +118,6 @@
             vertical.add(cone);
             vertical.position.set(0, 0, 0);
             scene.add(vertical);
-            */
 
             update();
 
@@ -133,26 +127,21 @@
                 renderer.render(scene, camera);
                 requestAnimationFrame(update);
 
-                // 箱を回転させる
-                //torus.rotation.x += 0.01;
+                // 物体を回転させる
+                torus.rotation.x += 0.01;
 
                 box.rotation.x += 0.01;
                 box.rotation.y += 0.01;
                 sphere.rotation.x += 0.01;
                 sphere.rotation.y += 0.01;
         
-                // 円柱を回転させる
-                /*
                 star.rotation.y += 0.01;
                 star.rotation.z += 0.01;
                 cone.rotation.y += 0.01;
                 cone.rotation.z += 0.01;
-                */
 
-                /*
                 vertical.rotation.x += 0.01;
                 horizontal.rotation.z += 0.01;
-                */
             }
         }
     </script>
