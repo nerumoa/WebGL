@@ -91,7 +91,7 @@
             scene.add(sphere);
 
             // 星型を作成
-            var starGeo = new THREE.TorusKnotGeometry(0.8, 0.3, 20, 6, 8, 5);
+            var starGeo = new THREE.TorusKnotGeometry(0.6, 0.3, 15, 8, 8, 5);
             var star = new THREE.Mesh(starGeo, mat);
             star.position.set(0, 3, 0);
             star.castShadow = true;
@@ -128,10 +128,10 @@
                 requestAnimationFrame(update);
 
                 // 物体を回転させる
-                vertical.rotation.x += 0.01;
-                vertical.rotation.y += 0.01;
-                //horizontal.rotation.y += 0.01;
-                //horizontal.rotation.z += 0.01;
+                //vertical.rotation.x += 0.01;
+                //vertical.rotation.y += 0.01;
+                horizontal.rotation.y += 0.01;
+                horizontal.rotation.z += 0.01;
             }
         }
     </script>
