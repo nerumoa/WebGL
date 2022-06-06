@@ -69,7 +69,6 @@
             sun.position.set(0, 0, 0);
             scene.add(sun);
 
-
             // 地球の画像を読み込み
             var earthMat = new THREE.MeshPhongMaterial();
             earthMat.map = earthTex;
@@ -80,7 +79,6 @@
             earth.castShadow = true;
             scene.add(earth);
 
-            
             // 月の画像を読み込み
             var moonMat = new THREE.MeshPhongMaterial();
             moonMat.map = moonTex;
@@ -88,10 +86,10 @@
             moonMat.bumpscale = 0.2;
             // 月を作成
             var moonGeo = new THREE.SphereGeometry(0.6, 32, 32);
-            var earth = new THREE.Mesh(moonGeo, moonMat);
-            earth.position.set(5, 0, 0);
-            earth.castShadow = true;
-            scene.add(earth);
+            var moon = new THREE.Mesh(moonGeo, moonMat);
+            moon.position.set(5, 0, 0);
+            moon.castShadow = true;
+            scene.add(moon);
 
 
 
