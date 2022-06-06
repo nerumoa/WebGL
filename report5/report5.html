@@ -55,17 +55,34 @@
             // テクスチャー読み込み
             var texLoader = new THREE.TextureLoader();  
             var tex = texLoader.load("stone.jpg");
-            var mat = new THREE.MeshPhongMaterial();
-            mat.map = tex;
+            var matStone = new THREE.MeshPhongMaterial();
+            matStone.map = tex;
             var bump = texLoader.load("stone-bump.jpg");    // バンプマップ
-            mat.bumpMap = bump;
-            mat.bumpscale = 0.2;
+            matStone.bumpMap = bump;
+            matStone.bumpscale = 0.2;
+
+            var mat = new THREE.MeshPhongMaterial();
+            // 地球を作成
+            var earthGeo = new THREE.SphereGeometry(0.6, 32, 32);
+            var earth = new THREE.Mesh(earthGeo, mat);
+            earth.position.set(3, 0, 0);
+            earth.castShadow = true;
+            scene.add(earth);
+
+            // 太陽を作成
+            var sunTex = texLoader.load("img/sun.png");
+            var sunMat = new THREE.SpriteMaterial({ map: sunTex,})
+            sunMat.map = sunTex;
+
+            const sunSprite = new THREE.Sprite(mat2);
+            sunSprite.scale.set(1, 2, 1);
+            sunSprite.position.set(-1, 1, 0);
+            scene.add(sunSprite);
 
             var texLoader2 = new THREE.TextureLoader();  
             var tex2 = texLoader2.load("img/tree0.png");
             var mat2 = new THREE.SpriteMaterial({ map: tex2,})
             mat2.map = tex2;
-
             // 木左
             const sprite1 = new THREE.Sprite(mat2);
             sprite1.scale.set(1, 2, 1);
@@ -77,15 +94,6 @@
             sprite2.scale.set(1, 2, 1);
             sprite2.position.set(1, 1, 0);
             scene.add(sprite2);
-
-            // 平面を作成
-            var planeGeo = new THREE.PlaneGeometry(10, 10);
-            var planeMaterial = new THREE.MeshPhongMaterial({ color: 0xeeeeee });
-            var plane = new THREE.Mesh(planeGeo, planeMaterial);
-            plane.receiveShadow = true;
-            plane.rotation.set(-Math.PI / 2, 0, 0);
-            plane.position.set(0, -4, 0);
-            scene.add(plane);
 
             update();
 
