@@ -22,7 +22,7 @@
             document.body.appendChild(renderer.domElement);
             renderer.setSize(width, height);
             renderer.shadowMap.enabled = true;
-            renderer.setClearColor(0xffffdd);   // 背景の色を設定
+            renderer.setClearColor(0x000000);   // 背景の色を設定
 
             // シーンを作成
             const scene = new THREE.Scene();
@@ -36,7 +36,7 @@
 
             // 平行光源
             var dirLight = new THREE.DirectionalLight(0x888888);
-            dirLight.position.set(0, 20, 0);
+            dirLight.position.set(0, 10, 0);
             dirLight.castShadow = true;
             scene.add(dirLight);
 
@@ -53,47 +53,37 @@
             //scene.add(axisHelper);
 
             // テクスチャー読み込み
-            var texLoader = new THREE.TextureLoader();  
-            var tex = texLoader.load("stone.jpg");
-            var matStone = new THREE.MeshPhongMaterial();
-            matStone.map = tex;
-            var bump = texLoader.load("stone-bump.jpg");    // バンプマップ
-            matStone.bumpMap = bump;
-            matStone.bumpscale = 0.2;
+            var texLoader = new THREE.TextureLoader();
+            var moonTex = texLoader.load("stone.jpg");
+            var moonBump = texLoader.load("stone-bump.jpg");    // バンプマップ
+            var earthTex = texLoader.load("earth.png");
+            var sunTex = texLoader.load("img/sun.png");
 
-            var mat = new THREE.MeshPhongMaterial();
+
+            var moonMat = new THREE.MeshPhongMaterial();
+            moonMat.map = moonTex;
+            moonMat.bumpMap = moonBump;
+            moonMat.bumpscale = 0.2;
+
+
+            var earthMat = new THREE.MeshPhongMaterial();
+            earthMat.map = earthTex;
+
             // 地球を作成
             var earthGeo = new THREE.SphereGeometry(0.6, 32, 32);
-            var earth = new THREE.Mesh(earthGeo, mat);
+            var earth = new THREE.Mesh(earthGeo, earthMat);
             earth.position.set(3, 0, 0);
             earth.castShadow = true;
             scene.add(earth);
 
-            // 太陽を作成
-            var sunTex = texLoader.load("img/sun.png");
+            // 太陽のスプライトを作成
             var sunMat = new THREE.SpriteMaterial({ map: sunTex,})
             sunMat.map = sunTex;
-
+            // 太陽を作成
             const sun = new THREE.Sprite(sunMat);
-            sun.scale.set(1, 2, 1);
-            sun.position.set(-1, 1, 0);
+            sun.scale.set(3, 3, 3);
+            sun.position.set(0, 0, 0);
             scene.add(sun);
-
-            var texLoader2 = new THREE.TextureLoader();  
-            var tex2 = texLoader2.load("img/tree0.png");
-            var mat2 = new THREE.SpriteMaterial({ map: tex2,})
-            mat2.map = tex2;
-            // 木左
-            const sprite1 = new THREE.Sprite(mat2);
-            sprite1.scale.set(1, 2, 1);
-            sprite1.position.set(-1, 1, 0);
-            scene.add(sprite1);
-
-            // 木右
-            const sprite2 = new THREE.Sprite(mat2);
-            sprite2.scale.set(1, 2, 1);
-            sprite2.position.set(1, 1, 0);
-            scene.add(sprite2);
 
             update();
 
