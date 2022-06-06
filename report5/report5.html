@@ -54,27 +54,11 @@
 
             // テクスチャー読み込み
             var texLoader = new THREE.TextureLoader();
+            var sunTex = texLoader.load("img/sun.png");
+            var earthTex = texLoader.load("img/earth.png");
             var moonTex = texLoader.load("stone.jpg");
             var moonBump = texLoader.load("stone-bump.jpg");    // バンプマップ
-            var earthTex = texLoader.load("img/earth.png");
-            var sunTex = texLoader.load("img/sun.png");
 
-
-            var moonMat = new THREE.MeshPhongMaterial();
-            moonMat.map = moonTex;
-            moonMat.bumpMap = moonBump;
-            moonMat.bumpscale = 0.2;
-
-
-            var earthMat = new THREE.MeshPhongMaterial();
-            earthMat.map = earthTex;
-
-            // 地球を作成
-            var earthGeo = new THREE.SphereGeometry(0.6, 32, 32);
-            var earth = new THREE.Mesh(earthGeo, earthMat);
-            earth.position.set(3, 0, 0);
-            earth.castShadow = true;
-            scene.add(earth);
 
             // 太陽のスプライトを作成
             var sunMat = new THREE.SpriteMaterial({ map: sunTex,})
@@ -84,6 +68,32 @@
             sun.scale.set(3, 3, 3);
             sun.position.set(0, 0, 0);
             scene.add(sun);
+
+
+            // 地球の画像を読み込み
+            var earthMat = new THREE.MeshPhongMaterial();
+            earthMat.map = earthTex;
+            // 地球を作成
+            var earthGeo = new THREE.SphereGeometry(0.6, 32, 32);
+            var earth = new THREE.Mesh(earthGeo, earthMat);
+            earth.position.set(3, 0, 0);
+            earth.castShadow = true;
+            scene.add(earth);
+
+            
+            // 月の画像を読み込み
+            var moonMat = new THREE.MeshPhongMaterial();
+            moonMat.map = moonTex;
+            moonMat.bumpMap = moonBump;
+            moonMat.bumpscale = 0.2;
+            // 月を作成
+            var moonGeo = new THREE.SphereGeometry(0.6, 32, 32);
+            var earth = new THREE.Mesh(moonGeo, moonMat);
+            earth.position.set(5, 0, 0);
+            earth.castShadow = true;
+            scene.add(earth);
+
+
 
             update();
 
