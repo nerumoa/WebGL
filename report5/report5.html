@@ -6,6 +6,8 @@
         <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
     </head>
 <body>
+    <h1>板ポリにテクスチャ―</h1>
+    板ポリにテクスチャ―貼ってみた<br>
     <script>
         // ページの読み込みを待つ
         window.addEventListener('DOMContentLoaded', init);
@@ -20,6 +22,7 @@
             document.body.appendChild(renderer.domElement);
             renderer.setSize(width, height);
             renderer.shadowMap.enabled = true;
+            renderer.setClearColor(0xffffdd);   // 背景の色を設定
 
             // シーンを作成
             const scene = new THREE.Scene();
@@ -54,11 +57,26 @@
             var tex = texLoader.load("stone.jpg");
             var mat = new THREE.MeshPhongMaterial();
             mat.map = tex;
-
-            // バンプマップ読み込み
-            var bump = texLoader.load("stone-bump.jpg");
+            var bump = texLoader.load("stone-bump.jpg");    // バンプマップ
             mat.bumpMap = bump;
             mat.bumpscale = 0.2;
+
+            var texLoader2 = new THREE.TextureLoader();  
+            var tex2 = texLoader.load("img/tree0.png");
+            var mat2 = new THREE.SpriteMaterial({ map: tex2,})
+            mat2.map = tex2;
+
+            // 木左
+            const sprite1 = new THREE.Sprite(material);
+            sprite1.scale.set(1, 2, 1);
+            sprite1.position.set(-1, 1, 0);
+            scene.add(sprite1);
+
+            // 木右
+            const sprite2 = new THREE.Sprite(material);
+            sprite2.scale.set(1, 2, 1);
+            sprite2.position.set(1, 1, 0);
+            scene.add(sprite2);
 
             // 平面を作成
             var planeGeo = new THREE.PlaneGeometry(10, 10);
@@ -68,55 +86,6 @@
             plane.rotation.set(-Math.PI / 2, 0, 0);
             plane.position.set(0, -4, 0);
             scene.add(plane);
-            
-            // ドーナツを作成
-            var torusGeo = new THREE.TorusGeometry(1.2, 0.2, 12, 30);
-            var torus = new THREE.Mesh(torusGeo, mat);
-            torus.castShadow = true;
-            torus.position.set(0, 0, 0);
-            scene.add(torus);
-
-            // 箱を作成
-            var boxGeo = new THREE.BoxGeometry(1, 1, 1);
-            var box = new THREE.Mesh(boxGeo, mat);
-            box.position.set(-3, 0, 0);
-            box.castShadow = true;
-            scene.add(box);
-
-            // 球を作成
-            var sphereGeo = new THREE.SphereGeometry(0.6, 32, 32);
-            var sphere = new THREE.Mesh(sphereGeo, mat);
-            sphere.position.set(3, 0, 0);
-            sphere.castShadow = true;
-            scene.add(sphere);
-
-            // 星型を作成
-            var starGeo = new THREE.TorusKnotGeometry(0.6, 0.3, 15, 8, 8, 5);
-            var star = new THREE.Mesh(starGeo, mat);
-            star.position.set(0, 3, 0);
-            star.castShadow = true;
-            scene.add(star);
-
-            // 円錐を作成
-            var coneGeo = new THREE.ConeGeometry(0.8, 0.8, 30);
-            var cone = new THREE.Mesh(coneGeo, mat);
-            cone.position.set(0, -3, 0);
-            cone.castShadow = true;
-            scene.add(cone);
-
-            // グループ作成
-            const vertical = new THREE.Group();
-            vertical.add(star);
-            vertical.add(cone);
-            vertical.position.set(0, 0, 0);
-            scene.add(vertical);
-
-            const horizontal = new THREE.Group();
-            horizontal.add(torus);
-            horizontal.add(box);
-            horizontal.add(sphere);
-            horizontal.position.set(0, 0, 0);
-            scene.add(horizontal);
 
             update();
 
@@ -125,13 +94,6 @@
                 // レンダリング
                 renderer.render(scene, camera);
                 requestAnimationFrame(update);
-
-                // 物体を回転させる
-                vertical.rotation.x += 0.01;
-                vertical.rotation.y += 0.01;
-                horizontal.rotation.y += 0.01;
-                horizontal.rotation.z += 0.01;
-                torus.rotation.x += 0.01;
             }
         }
     </script>
