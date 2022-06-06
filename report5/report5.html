@@ -65,7 +65,7 @@
             sunMat.map = sunTex;
             // 太陽を作成
             const sun = new THREE.Sprite(sunMat);
-            sun.scale.set(3, 3, 3);
+            sun.scale.set(5, 5, 5);
             sun.position.set(0, 0, 0);
             scene.add(sun);
 
@@ -85,7 +85,7 @@
             moonMat.bumpMap = moonBump;
             moonMat.bumpscale = 0.2;
             // 月を作成
-            var moonGeo = new THREE.SphereGeometry(0.6, 32, 32);
+            var moonGeo = new THREE.SphereGeometry(0.3, 32, 32);
             var moon = new THREE.Mesh(moonGeo, moonMat);
             moon.position.set(5, 0, 0);
             moon.castShadow = true;
