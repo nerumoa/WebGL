@@ -74,10 +74,10 @@
             var sunMat = new THREE.SpriteMaterial({ map: sunTex,})
             sunMat.map = sunTex;
 
-            const sunSprite = new THREE.Sprite(mat2);
-            sunSprite.scale.set(1, 2, 1);
-            sunSprite.position.set(-1, 1, 0);
-            scene.add(sunSprite);
+            const sun = new THREE.Sprite(sunMat);
+            sun.scale.set(1, 2, 1);
+            sun.position.set(-1, 1, 0);
+            scene.add(sun);
 
             var texLoader2 = new THREE.TextureLoader();  
             var tex2 = texLoader2.load("img/tree0.png");
