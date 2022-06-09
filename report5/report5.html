@@ -130,8 +130,8 @@
                 earth.position.x = 6 * Math.sin(planetRad);
                 earth.position.z = 6 * Math.cos(planetRad);
                 moon.rotation.x += 0.036;
-                moon.position.x = Math.sin(moonRad) + earth.position.x;
-                moon.position.z = Math.cos(moonRad) + earth.position.z;
+                moon.position.x = 2 * Math.sin(moonRad) + earth.position.x;
+                moon.position.z = 2 * Math.cos(moonRad) + earth.position.z;
             }
         }
     </script>
