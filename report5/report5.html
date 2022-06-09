@@ -101,16 +101,15 @@
 
             // 星を作成
             var starMat = new THREE.SpriteMaterial({ map: starTex,})
-            const stars = new THREE.Group();
             for (let i = 0; i < 100; i++){
                 const star = new THREE.Sprite(starMat);
-                sprite.position.x = 100 * Math.random();
-                sprite.position.y = 100 * Math.random();
-                sprite.position.z = 100 * Math.random();
+                star.position.x = 100 * Math.random();
+                star.position.y = 100 * Math.random();
+                star.position.z = 100 * Math.random();
                 star.scale.set(0.1, 0.1, 0.1);
-                stars.add(star);
+                scene.add(star);
             }
-            scene.add(stars);
+            
 
             update();
 
