@@ -85,6 +85,7 @@
             earth.position.set(6, 0, 0);
             earth.castShadow = true;
             scene.add(earth);
+            var planetRad = Math.PI * 1/2;
 
             // 月の画像を読み込み
             var moonMat = new THREE.MeshPhongMaterial();
@@ -97,7 +98,7 @@
             moon.position.set(7, 0, 0);
             moon.castShadow = true;
             scene.add(moon);
-            var radian = Math.PI * 1/2;
+            var moonRad = Math.Pi * 1/2;
 
             // 星を作成
             var starMat = new THREE.SpriteMaterial({ map: starTex,})
@@ -119,16 +120,18 @@
                 renderer.render(scene, camera);
                 requestAnimationFrame(update);
                 
-                radian += 0.003;
-                radian %= 2 * Math.PI;
+                planetRad += 0.003;
+                planetRad %= 2 * Math.PI;
+                moonRad += 0.036;
+                moonRad %= 2 * Math.PI;
 
                 earth.rotation.x += THREE.Math.degToRad(0.234);
                 earth.rotation.z += THREE.Math.degToRad(0.766);
-
-                earth.position.x = 6 * Math.sin(radian);
-                earth.position.z = 6 * Math.cos(radian);
-                moon.position.x = 7 * Math.sin(radian);
-                moon.position.z = 7 * Math.cos(radian);
+                earth.position.x = 6 * Math.sin(planetRad);
+                earth.position.z = 6 * Math.cos(planetRad);
+                moon.rotation.x += 0.036;
+                moon.position.x = Math.sin(moonRad) + earth.position.x;
+                moon.position.z = Math.cos(moonRad) + earth.position.z;
             }
         }
     </script>
