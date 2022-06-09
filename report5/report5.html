@@ -97,7 +97,7 @@
             moon.position.set(7, 0, 0);
             moon.castShadow = true;
             scene.add(moon);
-            var radian1 = 0;
+            var radian = Math.PI * 1/2;
 
             // 星を作成
             var starMat = new THREE.SpriteMaterial({ map: starTex,})
@@ -120,8 +120,8 @@
                 renderer.render(scene, camera);
                 requestAnimationFrame(update);
                 
-                radian1 += 0.001;
-                radian1 %= 2 * Math.PI;
+                radian += 0.003;
+                radian %= 2 * Math.PI;
                 earth.position.x = 6 * Math.sin(radian);
                 earth.position.z = 6 * Math.cos(radian);
                 moon.position.x = 7 * Math.sin(radian);
