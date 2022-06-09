@@ -83,7 +83,7 @@
             moon.position.set(7, 0, 0);
             moon.castShadow = true;
             scene.add(moon);
-            var moonRad = Math.Pi * 1/2;
+            var moonRad = Math.PI * 1/2;
 
             // 星を作成
             var starMat = new THREE.SpriteMaterial({ map: starTex,})
@@ -114,9 +114,8 @@
                 earth.position.x = 6 * Math.sin(planetRad);
                 earth.position.z = 6 * Math.cos(planetRad);
                 moon.rotation.x += 0.036;
-                moon.position.x = 7 * Math.sin(moonRad);
-                //moon.position.y = this.earth.position.x;
-                moon.position.z = 7 * Math.cos(moonRad);
+                moon.position.x = Math.sin(moonRad) + earth.position.x;
+                moon.position.z = Math.cos(moonRad) + earth.position.z;
             }
         }
     </script>
