@@ -83,7 +83,7 @@
             // 地球を作成
             var earthGeo = new THREE.SphereGeometry(0.6, 32, 32);
             var earth = new THREE.Mesh(earthGeo, earthMat);
-            earth.position.set(7, 0, 0);
+            earth.position.set(6, 0, 0);
             earth.castShadow = true;
             scene.add(earth);
 
@@ -95,7 +95,7 @@
             // 月を作成
             var moonGeo = new THREE.SphereGeometry(0.2, 32, 32);
             var moon = new THREE.Mesh(moonGeo, moonMat);
-            moon.position.set(8, 0, 0);
+            moon.position.set(7, 0, 0);
             moon.castShadow = true;
             scene.add(moon);
             const radian = 0;
@@ -119,14 +119,10 @@
                 
                 radian += 0.01;
                 radian %= 2 * Math.PI;
-                earth.position.set(
-                    7 * Math.sin(radian),
-                    0,
-                    7 * Math.cos(radian));
-                moon.position.set(
-                    8 * Math.sin(radian),
-                    0,
-                    8 * Math.cos(radian));
+                earth.position.x = 6 * Math.sin(radian);
+                earth.position,z = 6 * Math.cos(radian);
+                moon.position.x = 7 * Math.sin(radian);
+                moon.position.z = 7 * Math.cos(radian));
                 
    
             }
