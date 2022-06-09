@@ -66,6 +66,7 @@
             var earthTex = texLoader.load("img/earth.png");
             var moonTex = texLoader.load("img/stone.jpg");
             var moonBump = texLoader.load("img/stone-bump.jpg");    // バンプマップ
+            var starTex = texLoader.load("img/star.png");
 
 
             // 太陽のスプライトを作成
@@ -100,14 +101,33 @@
             scene.add(moon);
             var radian = 0;
 
-            // グループ作成
-            /*
-            const planet = new THREE.Group();
-            planet.add(earth);
-            planet.add(moon);
-            planet.position.set(0, 0, 0);
-            scene.add(planet);
-            */
+            // 星のスプライトを作成
+            var starMat = new THREE.SpriteMaterial({ map: starTex,})
+            starMat.map = starTex;
+            // 星を作成
+            const star = new THREE.Sprite(starMat);
+            star.scale.set(5, 5, 5);
+            star.position.set(0, 0, 0);
+            scene.add(star);
+
+
+        // 木をスプライトで作成
+        var textureLoader = new THREE.TextureLoader();  
+        var texture = textureLoader.load("img/tree0.png");
+        const material = new THREE.SpriteMaterial({ map: texture,});
+
+        // 森を作成
+        for (let i = 0; i < 20; i++) {
+          const sprite = new THREE.Sprite(material);
+          // ランダムな座標に配置
+          sprite.position.x = 2 * (Math.random() - 0.5);
+          sprite.position.y = 0.5 * Math.random();
+          sprite.position.z = 2 * (Math.random() - 0.5);
+          // スケールを調整
+          sprite.scale.set(0.5, 0.5, 0.5);
+
+          scene.add(sprite);
+        }
 
             update();
 
@@ -117,10 +137,10 @@
                 renderer.render(scene, camera);
                 requestAnimationFrame(update);
                 
-                radian += 0.01;
+                radian += 0.001;
                 radian %= 2 * Math.PI;
                 earth.position.x = 6 * Math.sin(radian);
-                earth.position,z = 6 * Math.cos(radian);
+                earth.position.z = 6 * Math.cos(radian);
                 moon.position.x = 7 * Math.sin(radian);
                 moon.position.z = 7 * Math.cos(radian);
                 
