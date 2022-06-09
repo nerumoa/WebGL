@@ -6,8 +6,9 @@
         <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
     </head>
 <body>
-    <h1>板ポリにテクスチャ―</h1>
-    板ポリにテクスチャ―貼ってみた<br>
+    <h1>惑星と星の描画</h1>
+    太陽と星をスプライトで作成し、
+    太陽の周りに地球と月を回転させた。<br>
     <script>
         // ページの読み込みを待つ
         window.addEventListener('DOMContentLoaded', init);
@@ -114,8 +115,8 @@
                 earth.position.x = 6 * Math.sin(planetRad);
                 earth.position.z = 6 * Math.cos(planetRad);
                 moon.rotation.x += 0.036;
-                moon.position.x = 2 * Math.sin(moonRad) + earth.position.x;
-                moon.position.y = 2 * Math.cos(moonRad) + earth.position.y;
+                moon.position.x = 7 * Math.sin(moonRad);
+                moon.position.y = earth.position.x;
                 moon.position.z = 7 * Math.cos(moonRad);
             }
         }
