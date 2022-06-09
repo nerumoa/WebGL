@@ -51,6 +51,7 @@
             // 点光源
             var pointLight = new THREE.PointLight(0xFFFFFF);
             pointLight.position.set(0, 0, 0);
+            pointLight.castShadow = true;
             scene.add(pointLight);
 
             // 座標表示
@@ -97,13 +98,16 @@
             moon.position.set(8, 0, 0);
             moon.castShadow = true;
             scene.add(moon);
+            const radian = 0;
 
             // グループ作成
+            /*
             const planet = new THREE.Group();
             planet.add(earth);
             planet.add(moon);
             planet.position.set(0, 0, 0);
             scene.add(planet);
+            */
 
             update();
 
@@ -112,8 +116,18 @@
                 // レンダリング
                 renderer.render(scene, camera);
                 requestAnimationFrame(update);
-
-                planet.rotation.x += 0.01;
+                
+                radian += 0.01;
+                radian %= 2 * Math.PI;
+                earth.position.set(
+                    7 * Math.sin(radian),
+                    0,
+                    7 * Math.cos(radian));
+                moon.position.set(
+                    8 * Math.sin(radian),
+                    0,
+                    8 * Math.cos(radian));
+                
    
             }
         }
