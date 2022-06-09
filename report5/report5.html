@@ -7,8 +7,7 @@
     </head>
 <body>
     <h1>惑星と星の描画</h1>
-    太陽と星をスプライトで作成し、
-    太陽の周りに地球と月を回転させた。<br>
+    太陽と星をスプライトで作成し、太陽の周りに地球と月を回転させた。<br>
     <script>
         // ページの読み込みを待つ
         window.addEventListener('DOMContentLoaded', init);
@@ -116,7 +115,7 @@
                 earth.position.z = 6 * Math.cos(planetRad);
                 moon.rotation.x += 0.036;
                 moon.position.x = 7 * Math.sin(moonRad);
-                moon.position.y = earth.position.x;
+                //moon.position.y = this.earth.position.x;
                 moon.position.z = 7 * Math.cos(moonRad);
             }
         }
