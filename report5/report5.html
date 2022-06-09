@@ -103,9 +103,9 @@
             var starMat = new THREE.SpriteMaterial({ map: starTex,})
             for (let i = 0; i < 100; i++){
                 const star = new THREE.Sprite(starMat);
-                star.position.x = 100 * Math.random();
-                star.position.y = 100 * Math.random();
-                star.position.z = 100 * Math.random();
+                star.position.x = THREE.Math.randFloatSpread(100);
+                star.position.y = THREE.Math.randFloatSpread(100);
+                star.position.z = THREE.Math.randFloatSpread(100);
                 star.scale.set(0.1, 0.1, 0.1);
                 scene.add(star);
             }
