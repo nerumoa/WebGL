@@ -34,20 +34,6 @@
             // カメラコントローラーを作成
             const controls = new THREE.OrbitControls(camera, document.body);
 
-            // 平行光源
-            /*
-            var dirLight = new THREE.DirectionalLight(0x888888);
-            dirLight.position.set(0, 10, 0);
-            dirLight.castShadow = true;
-            scene.add(dirLight);
-
-            // 平行光源　補助
-            var dirLight2 = new THREE.DirectionalLight(0x444444);
-            dirLight2.position.set(-10, 0, 10);
-            dirLight2.castShadow = true;
-            scene.add(dirLight2);
-            */
-
             // 点光源
             var pointLight = new THREE.PointLight(0xFFFFFF);
             pointLight.position.set(0, 0, 0);
@@ -131,7 +117,8 @@
                 earth.position.z = 6 * Math.cos(planetRad);
                 moon.rotation.x += 0.036;
                 moon.position.x = 2 * Math.sin(moonRad) + earth.position.x;
-                moon.position.z = 2 * Math.cos(moonRad) + earth.position.z;
+                moon.position.y = 2 * Math.cos(moonRad) + earth.position.y;
+                moon.position.z = 7 * Math.cos(moonRad);
             }
         }
     </script>
