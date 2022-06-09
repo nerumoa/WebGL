@@ -121,6 +121,10 @@
                 
                 radian += 0.003;
                 radian %= 2 * Math.PI;
+
+                earth.rotation.x += THREE.Math.degToRad(23.4);
+                earth.rotation.z += THREE.Math.degToRad(76.6);
+
                 earth.position.x = 6 * Math.sin(radian);
                 earth.position.z = 6 * Math.cos(radian);
                 moon.position.x = 7 * Math.sin(radian);
