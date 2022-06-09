@@ -82,7 +82,7 @@
             // 地球を作成
             var earthGeo = new THREE.SphereGeometry(0.6, 32, 32);
             var earth = new THREE.Mesh(earthGeo, earthMat);
-            earth.position.set(5, 0, 0);
+            earth.position.set(7, 0, 0);
             earth.castShadow = true;
             scene.add(earth);
 
@@ -92,13 +92,18 @@
             moonMat.bumpMap = moonBump;
             moonMat.bumpscale = 0.2;
             // 月を作成
-            var moonGeo = new THREE.SphereGeometry(0.3, 32, 32);
+            var moonGeo = new THREE.SphereGeometry(0.2, 32, 32);
             var moon = new THREE.Mesh(moonGeo, moonMat);
-            moon.position.set(7, 0, 0);
+            moon.position.set(8, 0, 0);
             moon.castShadow = true;
             scene.add(moon);
 
-
+            // グループ作成
+            const planet = new THREE.Group();
+            planet.add(earth);
+            planet.add(moon);
+            planet.position.set(0, 0, 0);
+            scene.add(planet);
 
             update();
 
@@ -107,6 +112,9 @@
                 // レンダリング
                 renderer.render(scene, camera);
                 requestAnimationFrame(update);
+
+                planet.rotation.x += 0.01;
+   
             }
         }
     </script>
