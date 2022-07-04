@@ -49,54 +49,34 @@
             //scene.add(axisHelper);
 
             // テクスチャー読み込み
+            /*
             var texLoader = new THREE.TextureLoader();
             var sunTex = texLoader.load("img/sun.png");
             var earthTex = texLoader.load("img/earth.png");
             var moonTex = texLoader.load("img/stone.jpg");
             var moonBump = texLoader.load("img/stone-bump.jpg");    // バンプマップ
             var starTex = texLoader.load("img/star.png");
+            */
 
             // 太陽を作成
+            /*
             var sunMat = new THREE.SpriteMaterial({ map: sunTex,})
             const sun = new THREE.Sprite(sunMat);
             sun.scale.set(5, 5, 5);
             sun.position.set(0, 0, 0);
             scene.add(sun);
+            */
 
-            // 地球の画像を読み込み
-            var earthMat = new THREE.MeshPhongMaterial();
-            earthMat.map = earthTex;
-            // 地球を作成
-            var earthGeo = new THREE.SphereGeometry(0.6, 32, 32);
-            var earth = new THREE.Mesh(earthGeo, earthMat);
-            earth.position.set(6, 0, 0);
-            earth.castShadow = true;
-            scene.add(earth);
-            var planetRad = Math.PI * 1/2;
-
-            // 月の画像を読み込み
-            var moonMat = new THREE.MeshPhongMaterial();
-            moonMat.map = moonTex;
-            moonMat.bumpMap = moonBump;
-            moonMat.bumpscale = 0.2;
-            // 月を作成
-            var moonGeo = new THREE.SphereGeometry(0.2, 32, 32);
-            var moon = new THREE.Mesh(moonGeo, moonMat);
-            moon.position.set(7, 0, 0);
-            moon.castShadow = true;
-            scene.add(moon);
-            var moonRad = Math.PI * 1/2;
-
-            // 星を作成
-            var starMat = new THREE.SpriteMaterial({ map: starTex,})
-            for (let i = 0; i < 100; i++){
-                const star = new THREE.Sprite(starMat);
-                star.position.x = THREE.Math.randFloatSpread(100);
-                star.position.y = THREE.Math.randFloatSpread(100);
-                star.position.z = THREE.Math.randFloatSpread(100);
-                star.scale.set(0.5, 0.5, 0.5);
-                scene.add(star);
-            }
+            const radius = 7;
+            const widthSegments = 12;
+            const heightSegments = 8;
+            const geometry = new THREE.SphereGeometry(radius, widthSegments, heightSegments);
+            const material = new THREE.PointsMaterial({
+                color: 'red',
+                size: 0.2,     // in world units
+            });
+            const points = new THREE.Points(geometry, material);
+            scene.add(points);
             
             update();
 
@@ -105,19 +85,6 @@
                 // レンダリング
                 renderer.render(scene, camera);
                 requestAnimationFrame(update);
-                
-                planetRad += 0.003;
-                planetRad %= 2 * Math.PI;
-                moonRad += 0.01;
-                moonRad %= 2 * Math.PI;
-
-                earth.rotation.x += THREE.Math.degToRad(0.234);
-                earth.rotation.z += THREE.Math.degToRad(0.766);
-                earth.position.x = 6 * Math.sin(planetRad);
-                earth.position.z = 6 * Math.cos(planetRad);
-                moon.rotation.x += 0.036;
-                moon.position.x = Math.sin(moonRad) + earth.position.x;
-                moon.position.z = Math.cos(moonRad) + earth.position.z;
             }
         }
     </script>
