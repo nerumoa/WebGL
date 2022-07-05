@@ -6,10 +6,15 @@
         <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
     </head>
 <body>
-    <h1>パーティクルの使用</h1>
+    <h1>泡パーティクル</h1>
     最終作品ではビールを作成するために、パーティクルの設定を行った。<br>
-    コップ、ビール、泡の全てが透ける必要があったため、透明度の設定を行った。<br>
+    コップ、ビール、泡について透ける必要があったため、透明度の設定を行った。<br>
     泡を一定の範囲内にランダム配置して上昇させたが、上まで到達したら再度下に配置し直すようにした。<br>
+    缶を一定のリズムで動くように、変数で制御を行った。<br>
+    直せなかった部分として、缶越しにコップを見るとコップが透けて見えてしまう点がある。<br>
+    これは、material作成時にdepthTestをfalseにしたことが原因であるが、trueの状態であると<br>
+    カメラの角度によってビールが上手く描画されなくなる。これらは、描画順や深度が原因と考えられる。<br>
+
     <script>
         // ページの読み込みを待つ
         window.addEventListener('DOMContentLoaded', init);
@@ -107,8 +112,8 @@
                     color: 0xffffff
                 });
                 bubbles[i] = new THREE.Mesh( bubbleGeo, bubbleMaterial );
-                bubbles[i].position.x = xSize * (Math.random() - 0.5) + 2.0;
-                bubbles[i].position.y = ySize * (Math.random() - 0.5) - 1.4;
+                bubbles[i].position.x = xSize * (Math.random() - 0.5) + cupX;
+                bubbles[i].position.y = ySize * (Math.random() - 0.5) + cupY - 0.4;
                 bubbles[i].position.z = xSize * (Math.random() - 0.5);
                 scene.add( bubbles[i] );
             }
@@ -184,6 +189,10 @@
             canCap.position.set(canX - 0.3, canY + 2.88, 0);
             canCap.rotation.set(-Math.PI / 2, Math.PI * 0.25, 0);
 
+            const canBeerGeo = new THREE.CylinderGeometry(1.48, 1.48, 4, 32);    // 缶の中のビールの作成
+            const canBeer = new THREE.Mesh(canBeerGeo, beerMaterial);
+            canBeer.position.set(canX, canY - 0.5, 0);
+
             // グループ化
             const canGroup = new THREE.Group();
             canGroup.add(can);
@@ -198,6 +207,7 @@
             canGroup.add(canHole4);
             canGroup.add(canHole5);
             canGroup.add(canCap);
+            canGroup.add(canBeer);
             canGroup.position.set(-2.5, 2.2, 0);
             scene.add(canGroup);
 
@@ -212,9 +222,9 @@
 
                 for(let i = 0; i < length; i++){
                     bubbles[i].position.y += 0.05;
-                    if (bubbles[i].position.y > 0.5) {
-                        bubbles[i].position.x = xSize * (Math.random() - 0.5) + 2.0;
-                        bubbles[i].position.y = -3.2;
+                    if (bubbles[i].position.y > cupY + 1.5) {
+                        bubbles[i].position.x = xSize * (Math.random() - 0.5) + cupX;
+                        bubbles[i].position.y = cupY - 2.2;
                         bubbles[i].position.z = xSize * (Math.random() - 0.5);
                     }
                 }
