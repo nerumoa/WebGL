@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Planet</title>
+        <title>Beer and Can</title>
         <meta charset="UTF-8">
         <script src="https://unpkg.com/three@0.137.4/build/three.min.js"></script>
         <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
@@ -12,7 +12,7 @@
     泡を一定の範囲内にランダム配置して上昇させたが、上まで到達したら再度下に配置し直すようにした。<br>
     缶を一定のリズムで動くように、変数で制御を行った。<br>
     直せなかった部分として、缶越しにコップを見るとコップが透けて見えてしまう点がある。<br>
-    これは、material作成時にdepthTestをfalseにしたことが原因であるが、trueの状態であると<br>
+    これは、マテリアル作成時にdepthTestをfalseにしたことが原因であるが、trueの状態であると<br>
     カメラの角度によってビールが上手く描画されなくなる。これらは、描画順や深度が原因と考えられる。<br>
 
     <script>
