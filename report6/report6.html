@@ -20,7 +20,7 @@
             const height = 600;
 
             // レンダラーを作成
-            var renderer = new THREE.WebGLRenderer();
+            var renderer = new THREE.WebGLRenderer({alpha:true});
             document.body.appendChild(renderer.domElement);
             renderer.setSize(width, height);
             renderer.shadowMap.enabled = true;
@@ -66,6 +66,13 @@
             sun.position.set(0, 0, 0);
             scene.add(sun);
             */
+
+            const cylGeo = new THREE.CylinderGeometry(5, 6, 20, 32);
+            const cylMaterial = new THREE.MeshPhongMaterial({color:0x000000});
+            //cylMaterial.opacity = 0.7;
+            const cylinder = newTHREE.Mesh(cylGeo, cylMaterial);
+            cylinder.position.set(0, 0, 0);
+            scene.add(cylinder);
 
             const radius = 7;
             const widthSegments = 12;
