@@ -8,7 +8,7 @@
 <body>
     <h1>パーティクルの使用</h1>
     最終作品ではビールを作成するために、パーティクルの設定を行った。<br>
-    コップ、ビール、泡全てが透ける必要があったため、透明度の設定を行った。<br>
+    コップ、ビール、泡の全てが透ける必要があったため、透明度の設定を行った。<br>
     泡を一定の範囲内にランダム配置して上昇させたが、上まで到達したら再度下に配置し直すようにした。<br>
     <script>
         // ページの読み込みを待つ
@@ -24,14 +24,14 @@
             document.body.appendChild(renderer.domElement);
             renderer.setSize(width, height);
             renderer.shadowMap.enabled = true;
-            renderer.setClearColor(0x000000);   // 背景の色を設定
+            renderer.setClearColor(0x033F4F);   // 背景の色を設定
 
             // シーンを作成
             const scene = new THREE.Scene();
 
             // カメラを作成
             const camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
-            camera.position.set(10, 6, 15);
+            camera.position.set(0, 5, 16);
 
             // カメラコントローラーを作成
             const controls = new THREE.OrbitControls(camera, document.body);
@@ -52,7 +52,9 @@
             //scene.add(axisHelper);
 
             /* コップ、ビールの作成 */
-            const cupGeo = new THREE.CylinderGeometry(1.75, 1.5, 5, 32, 16, true);
+            const cupX = 2;
+            const cupY = -1;
+            const cupGeo = new THREE.CylinderGeometry(1.75, 1.5, 5, 32, 16, true);  // コップの作成
             const cupMaterial = new THREE.MeshPhongMaterial({
                 transparent: true,
                 opacity: 0.25,
@@ -61,17 +63,17 @@
                 color: 0xFFFFFF
             });
             const cup = new THREE.Mesh(cupGeo, cupMaterial);
-            cup.position.set(0, 0, 0);
+            cup.position.set(cupX, cupY, 0);
             scene.add(cup);
 
-            const cupPlaneGeo = new THREE.CircleGeometry(1.5, 32);
+            const cupPlaneGeo = new THREE.CircleGeometry(1.5, 32); // コップの底面の作成
             const cupPlaneMaterial = new THREE.MeshPhongMaterial({ color: 0xeeeeee });
             const cupPlane = new THREE.Mesh(cupPlaneGeo, cupMaterial);
             cupPlane.rotation.set(-Math.PI / 2, 0, 0);
-            cupPlane.position.set(0, -2.5, 0);
+            cupPlane.position.set(cupX, cupY - 2.5, 0);
             scene.add(cupPlane);
 
-            const beerGeo = new THREE.CylinderGeometry(1.6, 1.4, 4, 32);
+            const beerGeo = new THREE.CylinderGeometry(1.6, 1.4, 4, 32);    // ビールの作成
             const beerMaterial = new THREE.MeshPhongMaterial({
                 transparent: true,
                 opacity: 0.8,
@@ -79,10 +81,10 @@
                 color: 0xDAA520
             });
             const beer = new THREE.Mesh(beerGeo, beerMaterial);
-            beer.position.set(0, -0.4, 0);
+            beer.position.set(cupX, cupY - 0.4, 0);
             scene.add(beer);
 
-            const hopGeo = new THREE.CylinderGeometry(1.66, 1.6, 0.8, 32);
+            const hopGeo = new THREE.CylinderGeometry(1.66, 1.6, 0.8, 32);  // ビールの上の泡部分の作成
             const hopMaterial = new THREE.MeshPhongMaterial({
                 transparent: true,
                 opacity: 0.8,
@@ -90,7 +92,7 @@
                 color: 0xffffff
             });
             const hop = new THREE.Mesh(hopGeo, hopMaterial);
-            hop.position.set(0, 2, 0);
+            hop.position.set(cupX, cupY + 2, 0);
             scene.add(hop);
 
             const length = 300;
@@ -98,19 +100,108 @@
             const xSize = 2;
             const ySize = 3.6;   
             for(let i = 0; i < length; i++){
-                let bubbleGeo = new THREE.SphereGeometry( 0.06, 16, 16 );
+                let bubbleGeo = new THREE.SphereGeometry( 0.06, 16, 16 );   // 泡(パーティクル)の作成
                 var bubbleMaterial = new THREE.MeshPhongMaterial({
                     transparent: true,
                     opacity: 0.9,
                     color: 0xffffff
                 });
                 bubbles[i] = new THREE.Mesh( bubbleGeo, bubbleMaterial );
-                bubbles[i].position.x = xSize * (Math.random() - 0.5);
-                bubbles[i].position.y = ySize * (Math.random() - 0.5) - 0.4;
+                bubbles[i].position.x = xSize * (Math.random() - 0.5) + 2.0;
+                bubbles[i].position.y = ySize * (Math.random() - 0.5) - 1.4;
                 bubbles[i].position.z = xSize * (Math.random() - 0.5);
                 scene.add( bubbles[i] );
             }
 
+            /* 缶の作成 */
+            const canX = 0;
+            const canY = 0;
+            const canGeo = new THREE.CylinderGeometry(1.5, 1.5, 5, 32, 16, true);   // 缶側面の作成
+            const canMaterial = new THREE.MeshPhongMaterial({
+                side: THREE.DoubleSide,
+                color: 0xF58220
+            });
+            const can = new THREE.Mesh(canGeo, canMaterial);
+            can.position.set(canX, canY, 0);
+
+            const canBottomGeo = new THREE.CylinderGeometry(1.5, 1.2, 0.4, 32, 16, true);   // 缶底面の作成
+            const canBottomMaterial = new THREE.MeshPhongMaterial({
+                side: THREE.DoubleSide,
+                color: 0xbbbbbb
+            });
+            const canBottom = new THREE.Mesh(canBottomGeo, canBottomMaterial);
+            canBottom.position.set(canX, canY - 2.7, 0);
+            scene.add(canBottom);
+
+            const canBottom2Geo = new THREE.CylinderGeometry(1.0, 1.2, 0.3, 32, 16, true);  // 缶底面の作成
+            const canBottom2 = new THREE.Mesh(canBottom2Geo, canBottomMaterial);
+            canBottom2.position.set(canX, canY - 2.75, 0);
+
+            const canBottom3Geo = new THREE.CircleGeometry(1.0, 32);    // 缶底面の作成
+            const canBottom3 = new THREE.Mesh(canBottom3Geo, canBottomMaterial);
+            canBottom3.position.set(canX, canY - 2.6, 0);
+            canBottom3.rotation.set(-Math.PI / 2, 0, 0);
+
+            const canTopGeo = new THREE.CylinderGeometry(1.31, 1.5, 0.4, 32, 16, true);  // 缶上面の作成
+            const canTopMaterial = new THREE.MeshPhongMaterial({
+                side: THREE.DoubleSide,
+                color: 0xbbbbbb
+            });
+            const canTop = new THREE.Mesh(canTopGeo, canMaterial);
+            canTop.position.set(canX, canY + 2.7, 0);
+
+            const canTop2Geo = new THREE.CylinderGeometry(1.32, 1.28, 0.3, 32, 16, true);   // 缶上面の作成
+            const canTop2 = new THREE.Mesh(canTop2Geo, canTopMaterial);
+            canTop2.position.set(canX, canY + 2.85, 0);
+
+            const canHoleGeo = new THREE.RingGeometry(0.9, 1.28, 32);   // 缶の穴空き部分の作成
+            const canHole = new THREE.Mesh(canHoleGeo, canTopMaterial);
+            canHole.position.set(canX, canY + 2.7, 0);
+            canHole.rotation.set(-Math.PI / 2, 0, 0);
+
+            const canHole2Geo = new THREE.CircleGeometry(0.9, 32, Math.PI * 0.5, Math.PI * 1.0); // 缶の穴空き部分の作成
+            const canHole2 = new THREE.Mesh(canHole2Geo, canTopMaterial);
+            canHole2.position.set(canX, canY + 2.7, 0);
+            canHole2.rotation.set(-Math.PI / 2, 0, 0);
+
+            const canHole3Geo = new THREE.PlaneGeometry(1.5, 0.6);   // 缶の穴空き部分の作成
+            const canHole3 = new THREE.Mesh(canHole3Geo, canTopMaterial);
+            canHole3.position.set(canX, canY + 2.7, -0.6);
+            canHole3.rotation.set(-Math.PI / 2, 0, Math.PI * 0.05);
+
+            const canHole4Geo = new THREE.PlaneGeometry(1.5, 0.6);   // 缶の穴空き部分の作成
+            const canHole4 = new THREE.Mesh(canHole4Geo, canTopMaterial);
+            canHole4.position.set(canX, canY + 2.7, 0.6);
+            canHole4.rotation.set(-Math.PI / 2, 0, Math.PI * -0.05);
+
+            const canHole5Geo = new THREE.CircleGeometry(0.4, 32, Math.PI * -0.5, Math.PI * 1.0); // 缶の穴空きの作成
+            const canHole5 = new THREE.Mesh(canHole5Geo, canTopMaterial);
+            canHole5.position.set(canX, canY + 2.7, 0);
+            canHole5.rotation.set(-Math.PI / 2, Math.PI * 0.25, 0);
+
+            const canCapGeo = new THREE.TorusGeometry(0.3, 0.05, 32, 32);  // 缶のフタの作成
+            const canCap = new THREE.Mesh(canCapGeo, canTopMaterial);
+            canCap.position.set(canX - 0.3, canY + 2.88, 0);
+            canCap.rotation.set(-Math.PI / 2, Math.PI * 0.25, 0);
+
+            // グループ化
+            const canGroup = new THREE.Group();
+            canGroup.add(can);
+            canGroup.add(canBottom);
+            canGroup.add(canBottom2);
+            canGroup.add(canBottom3);
+            canGroup.add(canTop);
+            canGroup.add(canTop2);
+            canGroup.add(canHole);
+            canGroup.add(canHole2);
+            canGroup.add(canHole3);
+            canGroup.add(canHole4);
+            canGroup.add(canHole5);
+            canGroup.add(canCap);
+            canGroup.position.set(-2.5, 2.2, 0);
+            scene.add(canGroup);
+
+            let direction = 0;
             update();
 
             // ループイベント
@@ -121,11 +212,22 @@
 
                 for(let i = 0; i < length; i++){
                     bubbles[i].position.y += 0.05;
-                    if (bubbles[i].position.y > 1.5) {
-                        bubbles[i].position.x = xSize * (Math.random() - 0.5);
-                        bubbles[i].position.y = -2.2;
+                    if (bubbles[i].position.y > 0.5) {
+                        bubbles[i].position.x = xSize * (Math.random() - 0.5) + 2.0;
+                        bubbles[i].position.y = -3.2;
                         bubbles[i].position.z = xSize * (Math.random() - 0.5);
                     }
+                }
+
+                direction++;
+                if (direction >= 600) {    // 60fps換算
+                    direction = 0;
+                }
+
+                if (60 <= direction && direction < 185) {
+                    canGroup.rotation.z -= 0.01;
+                } else if (300 <= direction && direction < 425) {
+                    canGroup.rotation.z += 0.01;
                 }
             }
         }
