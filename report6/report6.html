@@ -31,16 +31,19 @@
 
             // カメラを作成
             const camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
-            camera.position.set(5, 5, 15);
+            camera.position.set(10, 6, 15);
 
             // カメラコントローラーを作成
             const controls = new THREE.OrbitControls(camera, document.body);
 
-            // 点光源
-            var pointLight = new THREE.PointLight(0xFFFFFF);
-            pointLight.position.set(0, 0, 0);
-            pointLight.castShadow = true;
-            scene.add(pointLight);
+            // 平行光源
+            var dirLight = new THREE.DirectionalLight(0x999999);
+            dirLight.position.set(6, 10, 6);
+            scene.add(dirLight);
+
+            // 環境光源
+            const ambLight = new THREE.AmbientLight(0x444444, 0.9);
+            scene.add(ambLight);
 
             // 座標表示
             //const gridHelper = new THREE.GridHelper(2, 10); // size, step
@@ -67,13 +70,83 @@
             scene.add(sun);
             */
 
-            const cylGeo = new THREE.CylinderGeometry(5, 6, 20, 32);
-            const cylMaterial = new THREE.MeshPhongMaterial({color:0x000000});
-            //cylMaterial.opacity = 0.7;
-            const cylinder = newTHREE.Mesh(cylGeo, cylMaterial);
-            cylinder.position.set(0, 0, 0);
-            scene.add(cylinder);
+            const cupGeo = new THREE.CylinderGeometry(1.75, 1.5, 5, 32, 16, true);
+            const cupMaterial = new THREE.MeshPhongMaterial({
+                transparent: true,
+                opacity: 0.25,
+                side: THREE.DoubleSide,     // 両面を描画する
+                depthTest: false,
+                color: 0xFFFFFF
+            });
+            const cup = new THREE.Mesh(cupGeo, cupMaterial);
+            cup.position.set(0, 0, 0);
+            scene.add(cup);
 
+            const cupPlaneGeo = new THREE.CircleGeometry(1.5, 32);
+            const cupPlaneMaterial = new THREE.MeshPhongMaterial({ color: 0xeeeeee });
+            const cupPlane = new THREE.Mesh(cupPlaneGeo, cupMaterial);
+            cupPlane.rotation.set(-Math.PI / 2, 0, 0);
+            cupPlane.position.set(0, -2.5, 0);
+            scene.add(cupPlane);
+
+            const beerGeo = new THREE.CylinderGeometry(1.6, 1.4, 4, 32);
+            const beerMaterial = new THREE.MeshPhongMaterial({
+                transparent: true,
+                opacity: 0.8,
+                side: THREE.DoubleSide,     // 両面を描画する
+                color: 0xDAA520
+            });
+            const beer = new THREE.Mesh(beerGeo, beerMaterial);
+            beer.position.set(0, -0.4, 0);
+            scene.add(beer);
+
+
+            const hopGeo = new THREE.CylinderGeometry(1.66, 1.6, 0.8, 32);
+            const hopMaterial = new THREE.MeshPhongMaterial({
+                transparent: true,
+                opacity: 0.8,
+                side: THREE.DoubleSide,     // 両面を描画する
+                color: 0xffffff
+            });
+            const hop = new THREE.Mesh(hopGeo, hopMaterial);
+            hop.position.set(0, 2, 0);
+            scene.add(hop);
+
+
+            // 3Dオブジェクトを作る
+            const length = 300;
+            const vertices = [];
+            const xSize = 2;
+            const ySize = 3.6;
+            
+            for(let i = 0; i < length; i++){
+                let geometry = new THREE.SphereGeometry( 0.05, 0.05, 0.05 );
+                var material = new THREE.MeshBasicMaterial({
+                    transparent: true,
+                    opacity: 0.9,
+                    color: '0xffffff'
+                });
+            
+                vertices[i] = new THREE.Mesh( geometry, material );
+                vertices[i].position.x = xSize * (Math.random() - 0.5);
+                vertices[i].position.y = ySize * (Math.random() - 0.5) - 0.4;
+                vertices[i].position.z = xSize * (Math.random() - 0.5);
+                scene.add( vertices[i] );
+            }
+            
+            /*
+            function random(min, max) {
+                let rand = Math.floor((min + (max - min + 1) * Math.random()));
+                return rand;
+            }
+
+            const sphereGeo = new THREE.SphereGeometry(5, 6, 20);
+            const sphereMaterial = new THREE.MeshPhongMaterial({ color: 0x880088 });
+            const sphere = new THREE.Mesh(sphereGeo, sphereMaterial);
+            sphere.position.set(-10, 0, -10);
+            scene.add(sphere);
+
+            /*
             const radius = 7;
             const widthSegments = 12;
             const heightSegments = 8;
@@ -84,7 +157,8 @@
             });
             const points = new THREE.Points(geometry, material);
             scene.add(points);
-            
+            */
+
             update();
 
             // ループイベント
@@ -92,6 +166,15 @@
                 // レンダリング
                 renderer.render(scene, camera);
                 requestAnimationFrame(update);
+
+                for(let i=0; i<length; i++){
+                    vertices[i].position.y += 0.05;
+                    if (vertices[i].position.y > 1.5) {
+                        vertices[i].position.x = xSize * (Math.random() - 0.5);
+                        vertices[i].position.y = -2.2;
+                        vertices[i].position.z = xSize * (Math.random() - 0.5);
+                    }
+                }
             }
         }
     </script>
